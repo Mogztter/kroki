@@ -1,0 +1,10 @@
+FROM debian:10.9-slim
+
+ENV DRAWIO_VERSION "14.5.1"
+RUN addgroup -g 1000 kroki && adduser -D -G kroki -u 1000 kroki
+
+RUN apt-get update && apt-get install -y draw.io
+  && wget -q https://github.com/jgraph/drawio-desktop/releases/download/v${DRAWIO_VERSION}/drawio-amd64-${DRAWIO_VERSION}.deb \
+  && dpkg -i drawio-amd64-${DRAWIO_VERSION}.deb \
+  && rm -f drawio-amd64-${DRAWIO_VERSION}.deb \
+  && rm -rf /var/lib/apt/lists/*
